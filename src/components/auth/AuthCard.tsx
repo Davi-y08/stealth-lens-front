@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LockKeyhole } from "lucide-react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
-type AuthTab = "login" | "signup";
+export type AuthTab = "login" | "signup";
+
+interface AuthCardProps {
+  initialTab?: AuthTab;
+}
 
 const tabs: ReadonlyArray<{ id: AuthTab; label: string }> = [
   { id: "login", label: "Login" },
   { id: "signup", label: "Sign Up" },
 ];
 
-function AuthCard() {
-  const [activeTab, setActiveTab] = useState<AuthTab>("login");
+const tabPaths: Record<AuthTab, string> = {
+  login: "/login",
+  signup: "/signup",
+};
+
+function AuthCard({ initialTab = "login" }: AuthCardProps) {
+  const [activeTab, setActiveTab] = useState<AuthTab>(initialTab);
+
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
+  function updateActiveTab(nextTab: AuthTab): void {
+    setActiveTab(nextTab);
+
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", tabPaths[nextTab]);
+    }
+  }
 
   return (
     <motion.section
@@ -53,7 +74,7 @@ function AuthCard() {
                     className={`relative rounded-full px-4 py-3 text-sm font-medium transition duration-300 ${
                       isActive ? "text-slate-950" : "text-slate-400 hover:text-white"
                     }`}
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => updateActiveTab(tab.id)}
                   >
                     {isActive ? (
                       <motion.span
@@ -80,9 +101,9 @@ function AuthCard() {
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
               {activeTab === "login" ? (
-                <LoginForm onSwitch={() => setActiveTab("signup")} />
+                <LoginForm onSwitch={() => updateActiveTab("signup")} />
               ) : (
-                <SignupForm onSwitch={() => setActiveTab("login")} />
+                <SignupForm onSwitch={() => updateActiveTab("login")} />
               )}
             </motion.div>
           </AnimatePresence>

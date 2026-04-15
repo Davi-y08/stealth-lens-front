@@ -1,8 +1,13 @@
 import AuthCard from "../components/auth/AuthCard";
+import type { AuthTab } from "../components/auth/AuthCard";
 import BackgroundEffects from "../components/auth/BackgroundEffects";
 import BrandingPanel from "../components/auth/BrandingPanel";
 
-function AuthPage() {
+interface AuthPageProps {
+  initialTab: AuthTab;
+}
+
+function AuthPage({ initialTab }: AuthPageProps) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#05070d] text-slate-50">
       <BackgroundEffects />
@@ -19,13 +24,13 @@ function AuthPage() {
           </div>
 
           <div className="grid w-full gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,0.92fr)] lg:gap-8">
-          <div className="order-2 lg:order-1">
-            <BrandingPanel />
-          </div>
+            <div className="order-2 lg:order-1">
+              <BrandingPanel />
+            </div>
 
-          <div className="order-1 flex items-center lg:order-2">
-            <AuthCard />
-          </div>
+            <div className="order-1 flex items-center lg:order-2">
+              <AuthCard initialTab={initialTab} />
+            </div>
           </div>
         </div>
       </div>

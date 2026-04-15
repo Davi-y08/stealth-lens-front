@@ -1,3 +1,21 @@
+import type { ChangeEventHandler, HTMLInputTypeAttribute, ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
+
+interface InputFieldProps {
+  id: string;
+  label: string;
+  type?: HTMLInputTypeAttribute;
+  name: string;
+  placeholder: string;
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  autoComplete?: string;
+  icon?: LucideIcon;
+  trailingAction?: ReactNode;
+  hint?: string;
+  required?: boolean;
+}
+
 function InputField({
   id,
   label,
@@ -11,7 +29,7 @@ function InputField({
   trailingAction,
   hint,
   required = false,
-}) {
+}: InputFieldProps) {
   return (
     <label className="flex flex-col gap-2" htmlFor={id}>
       <span className="text-sm font-medium text-slate-200">{label}</span>

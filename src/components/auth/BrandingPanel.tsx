@@ -6,9 +6,21 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { motion } from "motion/react";
 
-const highlights = [
+interface BrandingHighlight {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+}
+
+interface BrandingMetric {
+  value: string;
+  label: string;
+}
+
+const highlights: ReadonlyArray<BrandingHighlight> = [
   {
     icon: ShieldCheck,
     title: "Security-native model access",
@@ -26,7 +38,7 @@ const highlights = [
   },
 ];
 
-const metrics = [
+const metrics: ReadonlyArray<BrandingMetric> = [
   { value: "12+", label: "Package types ready for future rollout" },
   { value: "24/7", label: "Monitoring posture for active environments" },
   { value: "Edge", label: "Designed for practical deployment paths" },

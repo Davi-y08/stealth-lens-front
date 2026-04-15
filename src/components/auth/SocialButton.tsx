@@ -1,4 +1,11 @@
-function SocialButton({ icon: Icon, label }) {
+import type { LucideIcon } from "lucide-react";
+
+interface SocialButtonProps {
+  icon: LucideIcon;
+  label: string;
+}
+
+function SocialButton({ icon: Icon, label }: SocialButtonProps) {
   return (
     <button
       type="button"

@@ -1,3 +1,12 @@
+type SectionHeaderAlign = "left" | "center";
+
+interface SectionHeaderProps {
+  eyebrow: string;
+  title: string;
+  description: string;
+  align?: SectionHeaderAlign;
+}
+
 const alignments = {
   left: {
     wrapper: "items-start text-left",
@@ -9,7 +18,12 @@ const alignments = {
   },
 };
 
-function SectionHeader({ eyebrow, title, description, align = "left" }) {
+function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  align = "left",
+}: SectionHeaderProps) {
   const alignment = alignments[align] ?? alignments.left;
 
   return (

@@ -1,9 +1,22 @@
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { Eye, EyeOff, KeyRound, Mail, ShieldCheck, User } from "lucide-react";
 import InputField from "./InputField";
 
-function SignupForm({ onSwitch }) {
-  const [form, setForm] = useState({
+interface SignupFormProps {
+  onSwitch: () => void;
+}
+
+interface SignupFormState {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  acceptedTerms: boolean;
+}
+
+function SignupForm({ onSwitch }: SignupFormProps) {
+  const [form, setForm] = useState<SignupFormState>({
     fullName: "",
     email: "",
     password: "",
@@ -12,7 +25,7 @@ function SignupForm({ onSwitch }) {
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  function handleChange(event) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = event.target;
 
     setForm((current) => ({
@@ -21,7 +34,7 @@ function SignupForm({ onSwitch }) {
     }));
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
 

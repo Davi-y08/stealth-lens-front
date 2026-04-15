@@ -4,13 +4,15 @@ import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
-const tabs = [
+type AuthTab = "login" | "signup";
+
+const tabs: ReadonlyArray<{ id: AuthTab; label: string }> = [
   { id: "login", label: "Login" },
   { id: "signup", label: "Sign Up" },
 ];
 
 function AuthCard() {
-  const [activeTab, setActiveTab] = useState("login");
+  const [activeTab, setActiveTab] = useState<AuthTab>("login");
 
   return (
     <motion.section
